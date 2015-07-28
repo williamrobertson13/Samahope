@@ -1,0 +1,135 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/extended_doctor_profile"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar"
+            android:id="@+id/include" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:id="@+id/scrollView" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:id="@+id/linearLayout"
+            android:orientation="vertical">
+
+            <ImageView
+            android:id="@+id/doctor_bgImage"
+            android:layout_width="match_parent"
+            android:layout_height="220sp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/docdoc" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:textColor="#000"
+        android:text="Dr. Shankar Rai"
+        android:textSize="20.0sp"
+        android:paddingLeft="16.0dip"
+        android:paddingTop="16.0dip"
+        android:paddingRight="16.0dip"
+        android:paddingBottom="16.0dip"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+            style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:progress="100"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar2"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:indeterminate="false"
+            android:layout_gravity="center_vertical" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="In 2002, I traveled to Sierra Leone to treat women with obstetric fistula, a debilitating birth complication that is almost never seen in countries like the US. Upon meeting and treating patients in Bo, Sierra Leone, I decided to dedicate my retirement from a 22-year career to performing as mIn 2002, I traveled to Sierra Leone to treat women with obstetric fistula, a debilitating birth complication that is almost never seen in countries like the US. Upon meeting and treating patients in Bo, Sierra Leone, I decided to dedicate my retirement from a 22-year career to performing as mIn 2002, I traveled to Sierra Leone to treat women with obstetric fistula, a debilitating birth complication that is almost never seen in countries like the US. Upon meeting and treating patients in Bo, Sierra Leone, I decided to dedicate my retirement from a 22-year career to performing as many fistula repair surgeries as possible. Since my initial visit to Sierra Leone in 2002, I have made over 27 trips to perform over 2,000 fistula repair surgeries for women in rural areas. I can reach 100 more patients with your support."
+            android:id="@+id/biography"
+        android:layout_weight="29.86" />
+
+            <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fafafa"
+        android:id="@+id/linearLayout2">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:src="@drawable/focus_burn" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Burn Injury Focus"
+                android:textColor="#000"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="41dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:src="@drawable/map_pin" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Kathmandu, Nepal"
+                android:textColor="#000"
+                android:textSize="13sp" />
+         </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONTRIBUTE"
+            android:id="@+id/button"
+            android:background="#2BB5BD"
+            android:textColor="#ffffffff"
+            android:textSize="22sp"
+            android:layout_gravity="center_horizontal|bottom" />
+    </LinearLayout>
+
+</LinearLayout>
