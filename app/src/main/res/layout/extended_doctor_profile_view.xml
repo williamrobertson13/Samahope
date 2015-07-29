@@ -15,8 +15,6 @@
     </LinearLayout>
 
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +24,6 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1.0"
         android:id="@+id/scrollView" >
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,23 +53,36 @@
         android:textStyle="bold"
         android:layout_height="wrap_content" />
 
-    <ProgressBar
+            <TextView
+                android:id="@+id/extended_money_needed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dip"
+                android:paddingBottom="10dip"
+                android:paddingRight="4dip"
+                android:paddingTop="5dip"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="$40"
+                android:textStyle="bold"
+                android:textColor="#2a2a2a"
+                android:textSize="18sp" />
+
+            <ProgressBar
             style="@android:style/Widget.Holo.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:progress="100"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar2"
+            android:progressDrawable="@drawable/orangeprogress"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
-            android:indeterminate="false"
-            android:layout_gravity="center_vertical" />
+            android:indeterminate="false" />
 
     <TextView
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:text="In 2002, I traveled to Sierra Leone to treat women with obstetric fistula, a debilitating birth complication that is almost never seen in countries like the US. Upon meeting and treating patients in Bo, Sierra Leone, I decided to dedicate my retirement from a 22-year career to performing as mIn 2002, I traveled to Sierra Leone to treat women with obstetric fistula, a debilitating birth complication that is almost never seen in countries like the US. Upon meeting and treating patients in Bo, Sierra Leone, I decided to dedicate my retirement from a 22-year career to performing as mIn 2002, I traveled to Sierra Leone to treat women with obstetric fistula, a debilitating birth complication that is almost never seen in countries like the US. Upon meeting and treating patients in Bo, Sierra Leone, I decided to dedicate my retirement from a 22-year career to performing as many fistula repair surgeries as possible. Since my initial visit to Sierra Leone in 2002, I have made over 27 trips to perform over 2,000 fistula repair surgeries for women in rural areas. I can reach 100 more patients with your support."
-            android:id="@+id/biography"
-        android:layout_weight="29.86" />
+            android:layout_height="match_parent"
+            android:text="biBusiness Leadership, and we'd love to get it up to #1 in Entrepreneurship. Please check out this post because it is valuable, as well as the Amazon link and 1) buy a book now if you plan on buying one at all.....2) leave an honest review about the book or our brand and movement......3) Share Business Leadership, and we'd love to get it up to #1 in Entrepreneurship. Please check out this post because it is valuable, as well as the Amazon link and 1) buy a book now if you plan on buying one at all.....2) leave an honest review about the book or our brand and movement......3) Share Business Leadership, and we'd love to get it up to #1 in Entrepreneurship. Please check out this post because it is valuable, as well as the Amazon link and 1) buy a book now if you plan on buying one at all.....2) leave an honest review about the book or our brand and movement......3) Share o"
+            android:id="@+id/biography" />
 
             <LinearLayout
         android:layout_width="match_parent"

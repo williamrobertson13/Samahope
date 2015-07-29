@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samahop.samahope.MainActivity;
 import com.samahop.samahope.R;
 
 public class ExtendedDoctorProfileView extends Fragment {
@@ -21,8 +22,6 @@ public class ExtendedDoctorProfileView extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       // ((MainActivity)getActivity()).getDataAdapter().getDoctors().get(0).getName();
     }
 
     @Override
@@ -38,18 +37,18 @@ public class ExtendedDoctorProfileView extends Fragment {
         activity.getSupportActionBar().setTitle("Doctor Overview");
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        return view;
 
+        DoctorProfile l = ((MainActivity)getActivity()).getDataAdapter().getDoctors().get(getArguments().getString("docName"));
+        Log.e(l.getName(), l.getLocation());
+
+        return view;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case android.R.id.home:
-                AppCompatActivity activity = (AppCompatActivity) getActivity();
-                activity.onBackPressed();
-                Log.e("FFF", "ffffff");
-        }
+        if (item.getItemId() == android.R.id.home)
+            getActivity().onBackPressed();
+
         return super.onOptionsItemSelected(item);
     }
 

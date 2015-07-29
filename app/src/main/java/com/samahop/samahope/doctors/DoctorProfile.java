@@ -49,9 +49,7 @@ public class DoctorProfile extends ParseObject {
      * Gets the treatment focus from the doctor object from Parse.
      * @return the treatment focus for the doctor
      */
-    public String getTreatmentName() {
-        return getString("treatment_name");
-    }
+    public String getTreatmentName() { return getString("treatment_name"); }
 
     /**
      * Gets the amount of money needed for the doctor object from Parse.
@@ -69,9 +67,8 @@ public class DoctorProfile extends ParseObject {
         return getInt("total_cost");
     }
 
-    public double getCostPercentage() {
-        float fundedMoney = getTotalCost() - getMoneyNeeded();
-        return (fundedMoney / getTotalCost()) * 100;
+    public float getCostPercentage() {
+        return ((getInt("total_cost") - getInt("money_needed")) / getInt("total_cost")) * 100;
     }
 
     /**

@@ -2,6 +2,6 @@
     <string name="app_name">Samahope</string>
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="money_needed_text">needed</string>
+    <string name="percentage_funded_text">funded</string>
 </resources>

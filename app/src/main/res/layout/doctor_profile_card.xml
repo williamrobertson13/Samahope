@@ -14,16 +14,14 @@
         <TextView
             android:id="@+id/doctor_name"
             android:layout_width="wrap_content"
-            android:textColor="#000"
-            android:text="Dr. Shankar Rai"
+            android:textColor="#2a2a2a"
             android:textSize="20.0sp"
             android:paddingLeft="16.0dip"
             android:paddingTop="16.0dip"
             android:paddingRight="16.0dip"
             android:paddingBottom="16.0dip"
-            android:layout_weight="1.0"
             android:textStyle="bold"
-            android:layout_height="0dp" />
+            android:layout_height="wrap_content" />
 
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,14 +29,13 @@
             android:layout_width="match_parent"
             android:foregroundGravity="bottom"
             android:orientation="vertical"
-            android:layout_height="288dip">
+            android:layout_height="270dip">
             <ImageView
                 android:id="@+id/doctor_bgImage"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/docdoc" />
+                android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:layout_gravity="center_horizontal|bottom"
@@ -56,7 +53,6 @@
                     android:paddingRight="4dip"
                     android:paddingTop="5dip"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="$40"
                     android:textStyle="bold"
                     android:textColor="#ffff"
                     android:textSize="16sp"
@@ -68,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="needed"
+                    android:text="@string/money_needed_text"
                     android:textColor="#ffff"
                     android:textSize="13sp"
                     android:ellipsize="end"
@@ -85,7 +81,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="75%"
                     android:textStyle="bold"
                     android:textColor="#ffff"
                     android:textSize="16sp"
@@ -100,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="funded"
+                    android:text="@string/percentage_funded_text"
                     android:textColor="#ffff"
                     android:textSize="13sp"
                     android:ellipsize="end"
@@ -116,7 +111,6 @@
                 <ProgressBar
                     android:layout_width="match_parent"
                     style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-                    android:progress="100"
                     android:layout_height="wrap_content"
                     android:id="@+id/progressFunded"
                     android:paddingLeft="10dip"
@@ -135,13 +129,13 @@
             android:layout_height="match_parent"
             android:background="#fafafa" >
 
-                <ImageView
-                    android:id="@+id/focus_image"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_vertical"
-                    android:paddingLeft="8dip"
-                    android:src="@drawable/focus_burn" />
+            <ImageView
+                android:id="@+id/focus_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="8dip" />
+
                 <TextView
                     android:id="@+id/treatment_name"
                     android:layout_gravity="center_vertical"
@@ -149,13 +143,11 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dip"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Burn Injury Focus"
                     android:scrollHorizontally="false"
                     android:ellipsize="none"
                     android:singleLine="false"
-                    android:textColor="#000"
+                    android:textColor="#2a2a2a"
                     android:textSize="12sp" />
-
 
                 <ImageView
                     android:layout_width="40dp"
@@ -172,8 +164,7 @@
                     android:paddingLeft="5dip"
                     android:paddingRight="5dip"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Kathmandu, Nepal"
-                    android:textColor="#000"
+                    android:textColor="#2a2a2a"
                     android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

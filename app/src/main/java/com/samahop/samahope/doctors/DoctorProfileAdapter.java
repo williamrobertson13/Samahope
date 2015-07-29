@@ -1,9 +1,6 @@
 package com.samahop.samahope.doctors;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +13,11 @@ import com.parse.ParseException;
 import com.parse.ParseQueryAdapter;
 import com.samahop.samahope.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by William on 7/16/2015.
@@ -24,11 +25,16 @@ import java.util.List;
 public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileViewHolder> {
 
     private ViewGroup parseParent;
-    List<DoctorProfile> doctors;
+    Map<String, DoctorProfile> doctors;
     private ParseQueryAdapter<DoctorProfile> parseAdapter;
 
     public DoctorProfileAdapter(Context context, ViewGroup parentIn) {
         super();
+
+        doctors = new HashMap<>();
+
+        // performance optimization for recycler view
+        setHasStableIds(false);
 
         parseParent = parentIn;
         parseAdapter = new ParseQueryAdapter<DoctorProfile>(context, getDoctorQueryFactory()) {
@@ -45,6 +51,8 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
                 DoctorProfileViewHolder dataBinder = new DoctorProfileViewHolder(v);
                 dataBinder.bindParseData(object);
 
+                doctors.put(object.getName(), object);
+
                 return v;
             }
         };
@@ -57,8 +65,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
     private ParseQueryAdapter.QueryFactory<DoctorProfile> getDoctorQueryFactory() {
         return new ParseQueryAdapter.QueryFactory<DoctorProfile>() {
             public ParseQuery<DoctorProfile> create() {
-                ParseQuery<DoctorProfile> query = DoctorProfile.getQuery();
-                return query;
+                return DoctorProfile.getQuery();
             }
         };
     }
@@ -70,7 +77,6 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
             @Override
             public void done(List<DoctorProfile> l, ParseException e) {
                 if (e == null) {
-                   doctors = l;
                     notifyDataSetChanged();
                 } else {
                     Log.e("DoctorProfileAdapter", "Error while querying in background: " + e.getMessage());
@@ -87,14 +93,12 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
     @Override
     public DoctorProfileViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.doctor_profile_card, viewGroup, false);
-        DoctorProfileViewHolder dvh = new DoctorProfileViewHolder(v);
-
-        return dvh;
+        return new DoctorProfileViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(DoctorProfileViewHolder doctorViewHolder, int i) {
-        parseAdapter.getView(i, doctorViewHolder.vCardView, parseParent);
+        parseAdapter.getView(i, doctorViewHolder.itemView, parseParent);
     }
 
     @Override
@@ -102,7 +106,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
         return parseAdapter.getCount();
     }
 
-    public List<DoctorProfile> getDoctors() { return doctors; }
+    public Map<String, DoctorProfile> getDoctors() { return doctors; }
 
     public class OnQueryLoadListener implements ParseQueryAdapter.OnQueryLoadListener<DoctorProfile> {
 
