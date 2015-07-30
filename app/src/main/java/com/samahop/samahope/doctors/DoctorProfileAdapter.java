@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.parse.FindCallback;
-import com.parse.ParseQuery;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.samahop.samahope.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -25,17 +23,16 @@ import java.util.Map;
 public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileViewHolder> {
 
     private ViewGroup parseParent;
-    Map<String, DoctorProfile> doctors;
+    private Map<String, DoctorProfile> doctors;
     private ParseQueryAdapter<DoctorProfile> parseAdapter;
 
     public DoctorProfileAdapter(Context context, ViewGroup parentIn) {
         super();
 
-        doctors = new HashMap<>();
-
         // performance optimization for recycler view
         setHasStableIds(false);
 
+        doctors = new HashMap<>();
         parseParent = parentIn;
         parseAdapter = new ParseQueryAdapter<DoctorProfile>(context, getDoctorQueryFactory()) {
 
@@ -72,7 +69,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
 
     public void loadDoctors() {
         ParseQuery<DoctorProfile> query = DoctorProfile.getQuery();
-        query.fromLocalDatastore();
+        // query.fromLocalDatastore();
         query.findInBackground(new FindCallback<DoctorProfile>() {
             @Override
             public void done(List<DoctorProfile> l, ParseException e) {

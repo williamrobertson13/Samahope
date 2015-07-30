@@ -2,13 +2,12 @@ package com.samahop.samahope;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.samahop.samahope.doctors.DoctorProfileAdapter;
 
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         dataAdapter = new DoctorProfileAdapter(this, mRecyclerView);
         mRecyclerView.setAdapter(dataAdapter);
 
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.sama_blue);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
     }
 
     @Override
