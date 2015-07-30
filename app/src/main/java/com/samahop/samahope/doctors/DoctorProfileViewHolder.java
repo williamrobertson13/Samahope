@@ -1,23 +1,16 @@
 package com.samahop.samahope.doctors;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.samahop.samahope.R;
-import com.samahop.samahope.doctors.DoctorProfile;
 import com.squareup.picasso.Picasso;
 
 
@@ -26,14 +19,14 @@ import com.squareup.picasso.Picasso;
  */
 public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
-    protected TextView name;
-    protected TextView location;
-    protected TextView treatmentName;
-    protected TextView moneyNeeded;
-    protected TextView percentageFunded;
-    protected ProgressBar progressFunded;
-    protected ImageView treatmentImage;
-    protected ImageView bannerImage;
+    private TextView name;
+    private TextView location;
+    private TextView treatmentName;
+    private TextView moneyNeeded;
+    private TextView percentageFunded;
+    private ProgressBar progressFunded;
+    private ImageView treatmentImage;
+    private ImageView bannerImage;
 
     /**
      * Initializes the widgets found on a doctor card.
@@ -64,8 +57,8 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
         location.setText(object.getLocation());
         treatmentName.setText(object.getTreatmentName());
         moneyNeeded.setText("$" + String.valueOf(object.getMoneyNeeded()));
-        percentageFunded.setText(String.valueOf((int) object.getCostPercentage()) + "%");
-        progressFunded.setProgress((int) object.getCostPercentage());
+        percentageFunded.setText(String.valueOf(object.getCostPercentage()) + "%");
+        progressFunded.setProgress(object.getCostPercentage());
 
         Picasso.with(itemView.getContext())
                 .load(object.getTreatmentImage())
@@ -89,8 +82,8 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
         bundle.putString("docName", name.getText().toString());
 
         Fragment profile = new ExtendedDoctorProfileView();
-        profile.setArguments(bundle)
-;
+        profile.setArguments(bundle);
+
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
         transaction.replace(android.R.id.content, profile);

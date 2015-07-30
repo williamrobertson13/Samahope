@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -33,23 +32,20 @@
             android:orientation="vertical">
 
             <ImageView
-            android:id="@+id/doctor_bgImage"
+            android:id="@+id/extended_doctor_image"
             android:layout_width="match_parent"
             android:layout_height="220sp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/docdoc" />
+            android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/extended_doctor_name"
         android:layout_width="wrap_content"
-        android:textColor="#000"
-        android:text="Dr. Shankar Rai"
+        android:textColor="#2a2a2a"
         android:textSize="20.0sp"
-        android:paddingLeft="16.0dip"
+        android:paddingLeft="10.0dip"
         android:paddingTop="16.0dip"
-        android:paddingRight="16.0dip"
-        android:paddingBottom="16.0dip"
+        android:paddingBottom="6.0dip"
         android:textStyle="bold"
         android:layout_height="wrap_content" />
 
@@ -60,11 +56,9 @@
                 android:paddingLeft="10dip"
                 android:paddingBottom="10dip"
                 android:paddingRight="4dip"
-                android:paddingTop="5dip"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="$40"
-                android:textStyle="bold"
-                android:textColor="#2a2a2a"
+                android:paddingTop="2dip"
+                android:text="@string/amount_raised_of_goal"
+                android:textColor="#000"
                 android:textSize="18sp" />
 
             <ProgressBar
@@ -72,17 +66,20 @@
             android:layout_width="match_parent"
             android:progress="100"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar2"
+            android:id="@+id/extended_doctor_progress"
             android:progressDrawable="@drawable/orangeprogress"
             android:paddingLeft="10dip"
+                android:minHeight="8dp"
             android:paddingRight="10dip"
             android:indeterminate="false" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="biBusiness Leadership, and we'd love to get it up to #1 in Entrepreneurship. Please check out this post because it is valuable, as well as the Amazon link and 1) buy a book now if you plan on buying one at all.....2) leave an honest review about the book or our brand and movement......3) Share Business Leadership, and we'd love to get it up to #1 in Entrepreneurship. Please check out this post because it is valuable, as well as the Amazon link and 1) buy a book now if you plan on buying one at all.....2) leave an honest review about the book or our brand and movement......3) Share Business Leadership, and we'd love to get it up to #1 in Entrepreneurship. Please check out this post because it is valuable, as well as the Amazon link and 1) buy a book now if you plan on buying one at all.....2) leave an honest review about the book or our brand and movement......3) Share o"
-            android:id="@+id/biography" />
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="5dp"
+        android:id="@+id/extended_doctor_biography" />
 
             <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +88,7 @@
         android:id="@+id/linearLayout2">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/extended_focus_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
@@ -99,13 +96,11 @@
                 android:src="@drawable/focus_burn" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/extended_focus_text"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dip"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Burn Injury Focus"
                 android:textColor="#000"
                 android:textSize="13sp" />
 
@@ -117,14 +112,12 @@
                 android:src="@drawable/map_pin" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/extended_doctor_location"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dip"
                 android:paddingRight="5dip"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Kathmandu, Nepal"
                 android:textColor="#000"
                 android:textSize="13sp" />
          </LinearLayout>
@@ -134,7 +127,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CONTRIBUTE"
+            android:text="@string/contribute"
             android:id="@+id/button"
             android:background="#2BB5BD"
             android:textColor="#ffffffff"

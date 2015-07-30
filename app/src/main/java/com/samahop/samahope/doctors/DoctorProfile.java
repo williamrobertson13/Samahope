@@ -1,7 +1,5 @@
 package com.samahop.samahope.doctors;
 
-import android.os.Parcelable;
-
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -67,8 +65,19 @@ public class DoctorProfile extends ParseObject {
         return getInt("total_cost");
     }
 
-    public float getCostPercentage() {
-        return ((getInt("total_cost") - getInt("money_needed")) / getInt("total_cost")) * 100;
+    /**
+     * Gets the amount of money raised for the doctor object from Parse.
+     * @return the amount of money raised for the doctor's next treatment
+     */
+    public int getMoneyRaised() { return getInt("total_cost") - getInt("money_needed"); }
+
+    /**
+     * Gets the percentage amount of money raised for the doctor's next treatment.
+     * @return the percentage of the treatment funded.
+     */
+    public int getCostPercentage() {
+        int moneyRaised = getInt("total_cost") - getInt("money_needed");
+        return (moneyRaised * 100) / getInt("total_cost");
     }
 
     /**
@@ -79,7 +88,7 @@ public class DoctorProfile extends ParseObject {
 
     /**
      * Gets the profile image for the doctor object from Parse.
-     * @return the iamge for the doctor's profile
+     * @return the image for the doctor's profile
      */
     public String getBannerImage() { return getString("image"); }
 
