@@ -6,6 +6,9 @@
     <item name="dark_grey" type="color">#2a2a2a</item>
     <item name="line_grey" type="color">#fafafa</item>
     <item name="progress_grey" type="color">#939393</item>
+    <item name="click_grey" type="color">#616161</item>
+    <item name="batman_grey" type="color">#212121</item>
     <item name="overlay" type="color">#90000000</item>
+
 
 </resources> 

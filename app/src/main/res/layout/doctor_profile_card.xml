@@ -113,7 +113,7 @@
                     android:paddingRight="10dip"
                     android:paddingBottom="8dp"
                     android:minHeight="8dp"
-                    android:progressDrawable="@drawable/orangeprogress"
+                    android:progressDrawable="@drawable/orange_progress"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/percentage_funded"
                     android:indeterminate="false" />

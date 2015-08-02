@@ -20,7 +20,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:id="@+id/scrollView" >
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +66,7 @@
             android:progress="100"
             android:layout_height="wrap_content"
             android:id="@+id/extended_doctor_progress"
-            android:progressDrawable="@drawable/orangeprogress"
+            android:progressDrawable="@drawable/orange_progress"
             android:paddingLeft="10dip"
                 android:minHeight="8dp"
             android:paddingRight="10dip"
@@ -124,11 +125,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/contribute"
-            android:id="@+id/button"
+            android:id="@+id/donate_button"
+            android:onClick="onDonateClicked"
             android:background="@color/sama_blue"
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:layout_gravity="center_horizontal|bottom" />
     </LinearLayout>
-
 </LinearLayout>

@@ -101,4 +101,8 @@ public class ExtendedDoctorProfileView extends Fragment {
         super.onDetach();
     }
 
+    public void onDonateClicked(View view) {
+
+    }
+
 }
