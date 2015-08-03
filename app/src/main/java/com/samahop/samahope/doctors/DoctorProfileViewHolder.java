@@ -86,7 +86,7 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
 
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        transaction.replace(android.R.id.content, profile);
+        transaction.replace(R.id.frame_layout, profile);
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -6,28 +6,24 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 
-import com.samahop.samahope.doctors.DoctorProfileAdapter;
+import com.samahop.samahope.doctors.DoctorFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private DoctorProfileAdapter dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,49 +35,66 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        //Initializing NavigationView
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if (menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                mDrawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()) {
+
+                    //Replacing the main content with ContentFragment Which is our Inbox View;
+                    case R.id.nav_item_home:
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+                        transaction.replace(R.id.frame_layout, new DoctorFragment());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                        break;
+                    case R.id.nav_item_activity:
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+        mNavigationView.getMenu().getItem(1).setChecked(true);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
+        transaction.replace(R.id.frame_layout, new DoctorFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.drawer_listview);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mActionBar, R.string.drawer_open, R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(getTitle());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(getTitle());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.doctors_list);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-
-        // setup a linear view layout for the list of doctor profiles
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(llm);
-        mRecyclerView.setHasFixedSize(true);
-
-        // initialize the adapter now that the parse data is set up
-        dataAdapter = new DoctorProfileAdapter(this, mRecyclerView);
-        mRecyclerView.setAdapter(dataAdapter);
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.sama_blue);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                dataAdapter.loadDoctors();
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
     }
 
     @Override
@@ -108,16 +121,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
+    }
+
     public void onFeedbackClicked(View view) {
-        Log.e("NO","BP");
-                Intent intent = new Intent();
+        Intent intent = new Intent();
         intent.setAction("android.intent.action.SENDTO");
         StringBuilder stringbuilder = new StringBuilder("mailto:contact@samahope.org?subject=");
         stringbuilder.append(Uri.encode("Samahope for Android App Feedback"))
@@ -132,9 +150,5 @@ public class MainActivity extends AppCompatActivity {
                 .append(Resources.getSystem().getConfiguration().locale);
         intent.setData(Uri.parse(stringbuilder.toString()));
         startActivity(Intent.createChooser(intent, "Send mail using... "));
-    }
-
-    public DoctorProfileAdapter getDataAdapter() {
-        return dataAdapter;
     }
 }

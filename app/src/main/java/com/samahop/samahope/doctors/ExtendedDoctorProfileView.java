@@ -7,14 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.samahop.samahope.MainActivity;
 import com.samahop.samahope.R;
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +29,7 @@ public class ExtendedDoctorProfileView extends Fragment {
 
         // initialize doctor object
         String doctorName = getArguments().getString("docName");
-        doctor = ((MainActivity)getActivity()).getDataAdapter().getDoctors().get(doctorName);
+        doctor = null;//((MainActivity)getActivity()).getDataAdapter().getDoctors().get(doctorName);
     }
 
     @Override
@@ -84,14 +82,6 @@ public class ExtendedDoctorProfileView extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home)
-            getActivity().onBackPressed();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
     }
@@ -104,5 +94,4 @@ public class ExtendedDoctorProfileView extends Fragment {
     public void onDonateClicked(View view) {
 
     }
-
 }

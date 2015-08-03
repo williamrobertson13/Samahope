@@ -1,7 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary" tools:targetApi="21">@color/sama_blue</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="21">@color/PrimaryDarkColor</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@android:color/transparent</item>
     </style>
 
 </resources>
