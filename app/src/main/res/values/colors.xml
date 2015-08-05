@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="sama_blue" type="color">#31c7d0</item>
+    <item name="sama_blue" type="color">#00BCD4</item>
     <item name="sama_orange" type="color">#ffa655</item>
     <item name="dark_grey" type="color">#2a2a2a</item>
     <item name="line_grey" type="color">#fafafa</item>
@@ -10,5 +10,7 @@
     <item name="batman_grey" type="color">#212121</item>
     <item name="overlay" type="color">#90000000</item>
 
-    <color name="PrimaryDarkColor">#259aa1</color>
+    <color name="PrimaryDarkColor">#0097A7</color>
+
+
 </resources> 

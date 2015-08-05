@@ -24,77 +24,40 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private int currentSelectedItem;
+
+    private FragmentManager.OnBackStackChangedListener
+            mOnBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
+        @Override
+        public void onBackStackChanged() {
+            syncActionBarArrowState();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar mActionBar = (Toolbar) findViewById(R.id.include);
-        setSupportActionBar(mActionBar);
+        Toolbar actionBar = (Toolbar) findViewById(R.id.include);
+        setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        //Initializing NavigationView
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        setupNavigationView();
+        getSupportFragmentManager().addOnBackStackChangedListener(mOnBackStackChangedListener);
+        currentSelectedItem = 1;
 
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if (menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
-
-                //Closing drawer on item click
-                mDrawerLayout.closeDrawers();
-
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()) {
-
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.nav_item_home:
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
-                        transaction.replace(R.id.frame_layout, new DoctorFragment());
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                        break;
-                    case R.id.nav_item_activity:
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-        mNavigationView.getMenu().getItem(1).setChecked(true);
+        DoctorFragment frag = new DoctorFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        transaction.replace(R.id.frame_layout, new DoctorFragment());
-        transaction.addToBackStack(null);
+        transaction.add(R.id.frame_layout, frag);
         transaction.commit();
+    }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mActionBar, R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    @Override
+    protected void onDestroy() {
+        getSupportFragmentManager().removeOnBackStackChangedListener(mOnBackStackChangedListener);
+        super.onDestroy();
     }
 
     @Override
@@ -121,20 +84,95 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        if (mDrawerToggle.isDrawerIndicatorEnabled() && mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            getSupportFragmentManager().popBackStack();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed(){
+    private void setupNavigationView() {
 
-        FragmentManager fm = getSupportFragmentManager();
-        fm.popBackStack();
+        //Initializing NavigationView
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if (menuItem.isChecked())
+                    menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                mDrawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_item_home:
+                        selectHome();
+                        break;
+                    case R.id.nav_item_activity:
+                        selectActivity();
+                        break;
+                    case R.id.nav_item_feedback:
+                        selectSendFeedback();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    public void onFeedbackClicked(View view) {
+    private void selectHome() {
+        if (currentSelectedItem != 1) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, new DoctorFragment());
+            transaction.commit();
+            currentSelectedItem = 1;
+        }
+    }
+
+    private void selectActivity() {
+        if (currentSelectedItem != 2) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, new DoctorFragment());
+            transaction.commit();
+            currentSelectedItem = 2;
+        }
+    }
+
+    private void selectSendFeedback() {
+        mNavigationView.getMenu().getItem(2).setChecked(false);
         Intent intent = new Intent();
         intent.setAction("android.intent.action.SENDTO");
         StringBuilder stringbuilder = new StringBuilder("mailto:contact@samahope.org?subject=");
@@ -150,5 +188,13 @@ public class MainActivity extends AppCompatActivity {
                 .append(Resources.getSystem().getConfiguration().locale);
         intent.setData(Uri.parse(stringbuilder.toString()));
         startActivity(Intent.createChooser(intent, "Send mail using... "));
+        mNavigationView.getMenu().getItem(2).setChecked(false);
+        currentSelectedItem = 3;
+    }
+
+    private void syncActionBarArrowState() {
+        int backStackEntryCount =
+                getSupportFragmentManager().getBackStackEntryCount();
+        mDrawerToggle.setDrawerIndicatorEnabled(backStackEntryCount == 0);
     }
 }

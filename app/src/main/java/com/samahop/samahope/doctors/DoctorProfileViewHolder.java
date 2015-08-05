@@ -1,7 +1,5 @@
 package com.samahop.samahope.doctors;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.samahop.samahope.MainActivity;
 import com.samahop.samahope.R;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +51,6 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
      * @param object the profile of the doctor
      */
     public void bindParseData(DoctorProfile object) {
-
         name.setText(object.getName());
         location.setText(object.getLocation());
         treatmentName.setText(object.getTreatmentName());
@@ -76,13 +74,18 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
     @Override
     public void onClick(View view) {
 
+        // Sure there is a better way to pass a doctor object into the fragment
+        // using interfaces but this is fine for now
         // let's pass the name to the fragment so we can access the profile
         // instead of having to query parse again for the specific entry
-        Bundle bundle = new Bundle();
-        bundle.putString("docName", name.getText().toString());
+        // Bundle bundle = new Bundle();
+        // bundle.putString("docName", name.getText().toString());
 
-        Fragment profile = new ExtendedDoctorProfileView();
-        profile.setArguments(bundle);
+        ExtendedDoctorProfileView profile = new ExtendedDoctorProfileView();
+
+        // this is very very ugly
+        DoctorFragment listFrag = ((DoctorFragment)((MainActivity)view.getContext()).getSupportFragmentManager().findFragmentById(R.id.frame_layout));
+        profile.setDoctor(listFrag.getDataAdapter().getDoctors().get(name.getText().toString()));
 
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.abc_fade_in, R.anim.abc_fade_out);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,27 +20,21 @@ public class ExtendedDoctorProfileView extends Fragment {
     private DoctorProfile doctor;
 
     public ExtendedDoctorProfileView() {
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // initialize doctor object
-        String doctorName = getArguments().getString("docName");
-        doctor = null;//((MainActivity)getActivity()).getDataAdapter().getDoctors().get(doctorName);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.extended_doctor_profile_view, container, false);
-
-        final Toolbar toolbar = (Toolbar) view.findViewById(R.id.include);
+        View view = inflater.inflate(R.layout.fragment_extended_doctor_profile, container, false);
 
         //set toolbar and enable back navigation
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setTitle("Doctor Overview");
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -90,6 +83,8 @@ public class ExtendedDoctorProfileView extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
+    public void setDoctor(DoctorProfile doc) { doctor = doc; }
 
     public void onDonateClicked(View view) {
 

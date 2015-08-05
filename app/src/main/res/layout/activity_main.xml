@@ -14,12 +14,12 @@
 
         <include layout="@layout/toolbar"
         android:id="@+id/include" />
-
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/include" />
+            android:layout_below="@+id/include" >
+        </FrameLayout>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
@@ -28,22 +28,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
+        app:itemIconTint="@color/navigation_selected_state"
+        app:itemTextColor="@color/navigation_selected_state"
         app:menu="@menu/menu_drawer" />
-
-   <!-- <LinearLayout
-        android:layout_gravity="left"
-        android:orientation="vertical"
-        android:id="@+id/menu_drawer"
-        android:background="@android:color/white"
-        android:layout_width="300.0dip"
-        android:layout_height="fill_parent">
-
-        <ListView
-            android:id="@+id/drawer_listview"
-            android:layout_width="fill_parent"
-            android:layout_height="0.0dip"
-            android:listSelector="@android:color/transparent"
-            android:divider="@null"
-            android:layout_weight="1.0" />
-    </LinearLayout> -->
 </android.support.v4.widget.DrawerLayout>
