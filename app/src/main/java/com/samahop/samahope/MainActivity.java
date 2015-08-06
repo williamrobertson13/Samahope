@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private Toolbar actionBar;
     private int currentSelectedItem;
+    private String mActionBarTitle;
 
     private FragmentManager.OnBackStackChangedListener
             mOnBackStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar actionBar = (Toolbar) findViewById(R.id.include);
+        actionBar = (Toolbar) findViewById(R.id.include);
         setSupportActionBar(actionBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (item.getItemId() == android.R.id.home) {
             getSupportFragmentManager().popBackStack();
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -119,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_item_home:
                         selectHome();
+                        mActionBarTitle = "Samahope";
                         break;
                     case R.id.nav_item_activity:
                         selectActivity();
+                        mActionBarTitle = "Activity";
                         break;
                     case R.id.nav_item_feedback:
                         selectSendFeedback();
@@ -139,12 +144,14 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
+                actionBar.setTitle(mActionBarTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                actionBar.setTitle(mActionBarTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -197,4 +204,6 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().getBackStackEntryCount();
         mDrawerToggle.setDrawerIndicatorEnabled(backStackEntryCount == 0);
     }
+
+    public DrawerLayout getDrawerLayout() { return mDrawerLayout; }
 }

@@ -25,6 +25,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
     private ViewGroup parseParent;
     private Map<String, DoctorProfile> doctors;
     private ParseQueryAdapter<DoctorProfile> parseAdapter;
+    private DoctorProfileAdapter recyclerAdapter = this;
 
     public DoctorProfileAdapter(Context context, ViewGroup parentIn) {
         super();
@@ -49,12 +50,10 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
                 dataBinder.bindParseData(object);
 
                 doctors.put(object.getName(), object);
-
                 return v;
             }
         };
         loadDoctors();
-
         parseAdapter.addOnQueryLoadListener(new OnQueryLoadListener());
         parseAdapter.loadObjects();
     }
@@ -112,6 +111,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
 
         public void onLoaded(List<DoctorProfile> objects, Exception e) {
             parseAdapter.notifyDataSetChanged();
+            recyclerAdapter.notifyDataSetChanged();
         }
     }
 }

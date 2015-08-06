@@ -81,7 +81,7 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
         // Bundle bundle = new Bundle();
         // bundle.putString("docName", name.getText().toString());
 
-        ExtendedDoctorProfileView profile = new ExtendedDoctorProfileView();
+        ExtendedDoctorFragment profile = new ExtendedDoctorFragment();
 
         // this is very very ugly
         DoctorFragment listFrag = ((DoctorFragment)((MainActivity)view.getContext()).getSupportFragmentManager().findFragmentById(R.id.frame_layout));
