@@ -3,12 +3,12 @@ package com.samahop.samahope.doctors;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.samahop.samahope.PreCachingLayoutManager;
 import com.samahop.samahope.R;
 
 /**
@@ -38,7 +38,7 @@ public class DoctorFragment extends Fragment {
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
 
         // setup a linear view layout for the list of doctor profiles
-        LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
+        PreCachingLayoutManager llm = new PreCachingLayoutManager(view.getContext());
         mRecyclerView.setLayoutManager(llm);
         mRecyclerView.setHasFixedSize(true);
 

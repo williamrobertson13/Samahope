@@ -58,17 +58,21 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
         percentageFunded.setText(String.valueOf(object.getCostPercentage()) + "%");
         progressFunded.setProgress(object.getCostPercentage());
 
-        Picasso.with(itemView.getContext())
-                .load(object.getTreatmentImage())
-                .fit()
-                .centerCrop()
-                .into(treatmentImage);
 
-        Picasso.with(itemView.getContext())
-                .load(object.getBannerImage())
-                .fit()
-                .centerCrop()
-                .into(bannerImage);
+       // if (treatmentImage.getDrawable() == null) {
+            Picasso.with(itemView.getContext())
+                    .load(object.getTreatmentImage())
+                    .fit()
+                    .centerCrop()
+                    .into(treatmentImage);
+       // }
+       // if (bannerImage.getDrawable() == null) {
+            Picasso.with(itemView.getContext())
+                    .load(object.getBannerImage())
+                    .fit()
+                    .centerCrop()
+                    .into(bannerImage);
+      //  }
     }
 
     @Override

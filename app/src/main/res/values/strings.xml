@@ -5,6 +5,7 @@
     <string name="amount_raised_of_goal">&lt;font color=#2a2a2a>&lt;b>&#36;%1$s&lt;/b>&lt;/font>&lt;small> USD raised of &#36;%2$s USD&lt;/small></string>
     <string name="money_needed_text">needed</string>
     <string name="percentage_funded_text">funded</string>
+    <string name="percentage_funded_text_2">&lt;font color=#2a2a2a>&lt;b>%1$s%%&lt;/b>&lt;/font> funded</string>
     <string name="contribute">CONTRIBUTE</string>
     <string name="drawer_open">open drawer</string>
     <string name="drawer_close">close drawer</string>
@@ -15,7 +16,4 @@
     <string name="menu_login">Login</string>
     <string name="menu_home">Home</string>
     <string name="menu_activity">Activity</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

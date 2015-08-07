@@ -53,11 +53,12 @@ public class ExtendedDoctorFragment extends Fragment {
         TextView treatmentName = (TextView) view.findViewById(R.id.extended_focus_text);
         ImageView treatmentImage = (ImageView) view.findViewById(R.id.extended_focus_image);
 
+
+
         name.setText(doctor.getName());
         biography.setText(doctor.getBiography());
         location.setText(doctor.getLocation());
         percentageFunded.setProgress(doctor.getCostPercentage());
-        percentageText.setText(String.valueOf(doctor.getCostPercentage()) + "% funded");
         treatmentName.setText(doctor.getTreatmentName());
 
         // format html string for money raised from xml
@@ -65,6 +66,13 @@ public class ExtendedDoctorFragment extends Fragment {
                 doctor.getMoneyRaised(), doctor.getTotalCost());
         CharSequence styledText = Html.fromHtml(text);
         moneyRaised.setText(styledText);
+
+        // format html string for percentage raised from xml
+        text = String.format(getResources().getString(R.string.percentage_funded_text_2),
+                doctor.getCostPercentage());
+        styledText = Html.fromHtml(text);
+        percentageText.setText(styledText);
+
 
         Picasso.with(view.getContext())
                 .load(doctor.getBannerImage())
@@ -92,8 +100,4 @@ public class ExtendedDoctorFragment extends Fragment {
     }
 
     public void setDoctor(DoctorProfile doc) { doctor = doc; }
-
-    public void onDonateClicked(View view) {
-
-    }
 }

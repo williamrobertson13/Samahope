@@ -39,6 +39,10 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
 
             @Override
             public View getItemView(DoctorProfile object, View v, ViewGroup parent) {
+
+                // only inflate the view if it doesn't exist, this is where the "recycling" comes in
+                // to play. this will recycle one view for every item and bind the appropriate data
+                // to it
                 if (v == null) {
                     v = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_profile_card, parent, false);
                 }
@@ -49,7 +53,8 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
                 DoctorProfileViewHolder dataBinder = new DoctorProfileViewHolder(v);
                 dataBinder.bindParseData(object);
 
-                doctors.put(object.getName(), object);
+                if (!doctors.containsKey(object.getName()))
+                    doctors.put(object.getName(), object);
                 return v;
             }
         };
@@ -68,7 +73,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
 
     public void loadDoctors() {
         ParseQuery<DoctorProfile> query = DoctorProfile.getQuery();
-        // query.fromLocalDatastore();
+        query.fromLocalDatastore();
         query.findInBackground(new FindCallback<DoctorProfile>() {
             @Override
             public void done(List<DoctorProfile> l, ParseException e) {
@@ -95,6 +100,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
     @Override
     public void onBindViewHolder(DoctorProfileViewHolder doctorViewHolder, int i) {
         parseAdapter.getView(i, doctorViewHolder.itemView, parseParent);
+
     }
 
     @Override
@@ -106,8 +112,7 @@ public class DoctorProfileAdapter extends RecyclerView.Adapter<DoctorProfileView
 
     public class OnQueryLoadListener implements ParseQueryAdapter.OnQueryLoadListener<DoctorProfile> {
 
-        public void onLoading() {
-        }
+        public void onLoading() { }
 
         public void onLoaded(List<DoctorProfile> objects, Exception e) {
             parseAdapter.notifyDataSetChanged();

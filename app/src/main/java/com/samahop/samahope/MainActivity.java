@@ -206,4 +206,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public DrawerLayout getDrawerLayout() { return mDrawerLayout; }
+
+    public void onDonateClicked(View view) {
+        Intent intent = new Intent(view.getContext(), PaymentActivity.class);
+        startActivity(intent);
+    }
 }

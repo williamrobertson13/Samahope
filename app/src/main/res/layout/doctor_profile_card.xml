@@ -33,9 +33,7 @@
             <ImageView
                 android:id="@+id/doctor_bgImage"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
+                android:layout_height="fill_parent" />
 
             <RelativeLayout
                 android:layout_gravity="center_horizontal|bottom"
