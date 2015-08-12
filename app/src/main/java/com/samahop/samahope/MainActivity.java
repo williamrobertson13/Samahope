@@ -208,7 +208,10 @@ public class MainActivity extends AppCompatActivity {
     public DrawerLayout getDrawerLayout() { return mDrawerLayout; }
 
     public void onDonateClicked(View view) {
-        Intent intent = new Intent(view.getContext(), PaymentActivity.class);
-        startActivity(intent);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom, R.anim.abc_popup_exit);
+        transaction.replace(R.id.frame_layout, new PaymentFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

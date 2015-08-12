@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.samahop.samahope.PaymentFragment">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recurring_payment_checkbox"
+        android:layout_marginBottom="90dp"
+        android:paddingLeft="80dp">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$10"
+            android:id="@+id/radioDonate10"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$25"
+            android:id="@+id/radioDonate25"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom"
+            android:id="@+id/radioDonateCustom"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New RadioButton"
+            android:id="@+id/radioButton4" />
+
+    </RadioGroup>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Donate monthly"
+        android:id="@+id/recurring_payment_checkbox"
+        android:checked="false"
+        android:layout_marginBottom="110dp"
+        android:layout_above="@+id/payment_button"
+        android:layout_centerHorizontal="true" />
+
+
+    <!--This will be replaced at runtime with an android pay button -->
+    <FrameLayout
+        android:id="@+id/dynamic_wallet_button_fragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/payment_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contribute"
+        android:id="@+id/payment_button"
+        android:background="@color/sama_blue"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
