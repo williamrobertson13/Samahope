@@ -77,7 +77,13 @@ public class DoctorProfile extends ParseObject {
      */
     public int getCostPercentage() {
         int moneyRaised = getInt("total_cost") - getInt("money_needed");
-        return (moneyRaised * 100) / getInt("total_cost");
+
+        // fix divide by 0 if parse value is scraped correctly
+        int totalCost = getInt("total_cost");
+        if (totalCost == 0)
+            return 0;
+
+        return (moneyRaised * 100) / totalCost;
     }
 
     /**
