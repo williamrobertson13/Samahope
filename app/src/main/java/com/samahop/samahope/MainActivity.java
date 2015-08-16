@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.samahop.samahope.doctors.DoctorFragment;
+import com.samahop.samahope.payments.PaymentFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame_layout, frag);
         transaction.commit();
+
     }
 
     @Override
@@ -213,5 +216,15 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, new PaymentFragment());
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getPaymentFragment().onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private Fragment getPaymentFragment() {
+        return getSupportFragmentManager().findFragmentById(R.id.frame_layout);
     }
 }

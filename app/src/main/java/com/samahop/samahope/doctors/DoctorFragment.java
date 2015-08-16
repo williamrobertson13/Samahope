@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.samahop.samahope.PreCachingLayoutManager;
 import com.samahop.samahope.R;
+import com.samahop.samahope.widgets.PreCachingLayoutManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +26,7 @@ public class DoctorFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override

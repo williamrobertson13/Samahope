@@ -1,4 +1,4 @@
-package com.samahop.samahope;
+package com.samahop.samahope.widgets;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

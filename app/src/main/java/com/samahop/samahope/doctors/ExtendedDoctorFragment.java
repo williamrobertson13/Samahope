@@ -53,8 +53,6 @@ public class ExtendedDoctorFragment extends Fragment {
         TextView treatmentName = (TextView) view.findViewById(R.id.extended_focus_text);
         ImageView treatmentImage = (ImageView) view.findViewById(R.id.extended_focus_image);
 
-
-
         name.setText(doctor.getName());
         biography.setText(doctor.getBiography());
         location.setText(doctor.getLocation());
