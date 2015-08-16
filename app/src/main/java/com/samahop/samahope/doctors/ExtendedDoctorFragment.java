@@ -1,11 +1,15 @@
 package com.samahop.samahope.doctors;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.ShareActionProvider;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,12 +28,14 @@ import com.squareup.picasso.Picasso;
 public class ExtendedDoctorFragment extends Fragment {
 
     private DoctorProfile doctor;
+    private ShareActionProvider mShareActionProvider;
 
     public ExtendedDoctorFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -88,14 +94,20 @@ public class ExtendedDoctorFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_share_content, menu);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.menu_item_share));
+        mShareActionProvider.setShareIntent(getDefaultShareIntent());
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    private Intent getDefaultShareIntent(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "SUBJECT");
+        intent.putExtra(Intent.EXTRA_TEXT, "Extra Text");
+        return intent;
     }
 
     public void setDoctor(DoctorProfile doc) { doctor = doc; }
+
 }

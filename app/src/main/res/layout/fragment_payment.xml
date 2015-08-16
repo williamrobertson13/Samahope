@@ -3,14 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_payment"
+    android:orientation="vertical"
     tools:context="com.samahop.samahope.payments.PaymentFragment">
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/dynamic_wallet_button_fragment"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="12dp"
+        android:background="@color/dark_grey"
+        android:id="@+id/view" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Contribution"
+        android:paddingBottom="7dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:id="@+id/contributionText"
+        android:layout_below="@+id/view"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignBottom="@+id/contributionText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingTop="4dp"
+        android:orientation="horizontal"
+        android:id="@+id/radio_group"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/contributionText">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -29,22 +61,74 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Custom"
-            android:id="@+id/checkedCustom"
+            android:text="$50"
+            android:id="@+id/checked50"
             android:checked="false" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entire Treatment"
-            android:id="@+id/checkedEntireTreatment"
+            android:text="$100"
+            android:id="@+id/checked100"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom"
+            android:id="@+id/checkedCustom"
             android:checked="false" />
 
     </RadioGroup>
+
     <FrameLayout
         android:id="@+id/dynamic_wallet_button_fragment"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_below="@+id/radio_group" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Donate monthly"
+        android:id="@+id/checkedMonthly"
+        android:checked="false"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_alignRight="@+id/radio_group"
+        android:layout_alignEnd="@+id/radio_group" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="12dp"
+        android:background="@color/dark_grey"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/view2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Contact Information"
+        android:paddingBottom="7dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:id="@+id/contactInfo"
+        android:layout_below="@+id/view2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
