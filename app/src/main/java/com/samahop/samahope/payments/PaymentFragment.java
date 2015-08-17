@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -40,6 +44,7 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
         GoogleApiClient.OnConnectionFailedListener  {
 
     private GoogleApiClient googleApiClient;
+    private int donationAmount;
 
     public static final int LOAD_MASKED_WALLET_REQUEST_CODE = 1000;
     public static final int LOAD_FULL_WALLET_REQUEST_CODE = 1001;
@@ -52,11 +57,15 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View v = inflater.inflate(R.layout.fragment_payment, container, false);
+
         // Inflate the layout for this fragment//set toolbar and enable back navigation
         MainActivity activity = (MainActivity) getActivity();
         activity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         activity.getSupportActionBar().setTitle("Select Amount");
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        initializePaymentUI(v);
 
         googleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addConnectionCallbacks(this)
@@ -69,7 +78,76 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
 
         createAndAddWalletFragment();
 
-        return inflater.inflate(R.layout.fragment_payment, container, false);
+        return v;
+    }
+
+    private void initializePaymentUI(View v) {
+        RadioGroup amountGroup = (RadioGroup) v.findViewById(R.id.radio_group_payment);
+        final EditText customText = (EditText)v.findViewById(R.id.edit_text_custom);
+
+        amountGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch (checkedId) {
+                    case R.id.radio_10:
+                        donationAmount = 10;
+                        customText.setEnabled(false);
+                        customText.setText("");
+                        break;
+
+                    case R.id.radio_25:
+                        donationAmount = 25;
+                        customText.setEnabled(false);
+                        customText.setText("");
+                        break;
+
+                    case R.id.radio_50:
+                        donationAmount = 50;
+                        customText.setEnabled(false);
+                        customText.setText("");
+                        break;
+
+                    case R.id.radio_100:
+                        donationAmount = 100;
+                        customText.setEnabled(false);
+                        customText.setText("");
+                        break;
+
+                    case R.id.radio_custom:
+                        customText.setEnabled(true);
+                        break;
+                }
+            }
+        });
+
+        customText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = customText.getText().toString();
+                if (!isNumeric(text) || text.isEmpty())
+                    return;
+
+                // set the correct amount to be passed to the server
+                donationAmount = Integer.valueOf(customText.getText().toString());
+            }
+        });
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        for (char c : str.toCharArray())
+        {
+            if (!Character.isDigit(c)) return false;
+        }
+        return true;
     }
 
     @Override
@@ -88,7 +166,7 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                         FullWalletRequest fullWalletRequest = FullWalletRequest.newBuilder()
                                 .setCart(Cart.newBuilder()
                                         .setCurrencyCode("USD")
-                                        .setTotalPrice("20.00")
+                                        .setTotalPrice(String.valueOf(donationAmount))
                                         .build())
                                 .setGoogleTransactionId(maskedWallet.getGoogleTransactionId())
                                 .build();
@@ -111,8 +189,9 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                         String tokenJSON = fullWallet.getPaymentMethodToken().getToken();
 
                         Token token = Token.GSON.fromJson(tokenJSON, Token.class);
-                        token.setAmount(20);
+                        token.setAmount(donationAmount);
                         Log.e("F", token.toString());
+                        launchDonationCompletePage();
                         break;
                     case Activity.RESULT_CANCELED:
                         break;
@@ -124,6 +203,10 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
         }
+    }
+
+    private void launchDonationCompletePage() {
+
     }
 
     protected void handleError(int errorCode) {
@@ -171,8 +254,9 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                         .build())
 
                 .setShippingAddressRequired(false)
-                .setEstimatedTotalPrice("20.00")
+                .setEstimatedTotalPrice(String.valueOf(donationAmount))
                 .setCurrencyCode("USD")
+                .setMerchantName("Samahope")
                 .build();
 
         // Set the parameters and initialize the masked wallet request
@@ -188,6 +272,8 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                 .replace(R.id.dynamic_wallet_button_fragment, mWalletFragment)
                 .commit();
     }
+
+    public int getDonationAmount() { return donationAmount; }
 
     public void onStart() {
         super.onStart();
