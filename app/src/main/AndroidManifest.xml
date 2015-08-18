@@ -29,6 +29,10 @@
             android:name=".payments.PaymentFragment"
             android:label="@string/title_activity_test" >
         </activity>
+        <activity
+            android:name=".payments.DonationCompleteActivity"
+            android:label="@string/title_activity_donation_complete" >
+        </activity>
     </application>
 
 </manifest>

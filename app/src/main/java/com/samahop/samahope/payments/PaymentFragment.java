@@ -39,7 +39,6 @@ import com.samahop.samahope.R;
 import com.stripe.model.Token;
 
 
-
 public class PaymentFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener  {
 
@@ -157,12 +156,22 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
         if (data != null) {
             errorCode = data.getIntExtra(WalletConstants.EXTRA_ERROR_CODE, -1);
         }
+
+        RadioGroup amountGroup = (RadioGroup) getView().findViewById(R.id.radio_group_payment);
+        if (amountGroup.getCheckedRadioButtonId() == -1)
+        {
+            // no radio buttons are checked
+            Snackbar.make(getView(), "Please select an amount first!", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+
         switch (requestCode) {
             case LOAD_MASKED_WALLET_REQUEST_CODE:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
                         MaskedWallet maskedWallet =
                                 data.getParcelableExtra(WalletConstants.EXTRA_MASKED_WALLET);
+
                         FullWalletRequest fullWalletRequest = FullWalletRequest.newBuilder()
                                 .setCart(Cart.newBuilder()
                                         .setCurrencyCode("USD")
@@ -171,6 +180,7 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                                 .setGoogleTransactionId(maskedWallet.getGoogleTransactionId())
                                 .build();
                         Wallet.Payments.loadFullWallet(googleApiClient, fullWalletRequest, LOAD_FULL_WALLET_REQUEST_CODE);
+                        Snackbar.make(getView(), "Processing payment... ", Snackbar.LENGTH_LONG).show();
                         break;
                     case Activity.RESULT_CANCELED:
                         break;
@@ -206,7 +216,8 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
     }
 
     private void launchDonationCompletePage() {
-
+        Intent intent = new Intent(getActivity(), DonationCompleteActivity.class);
+        getActivity().startActivity(intent);
     }
 
     protected void handleError(int errorCode) {
