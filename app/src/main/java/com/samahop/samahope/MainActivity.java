@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onDonateClicked(View view) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.abc_grow_fade_in_from_bottom, R.anim.abc_popup_exit);
+        transaction.setCustomAnimations(R.anim.abc_popup_enter, R.anim.abc_popup_exit);
         transaction.replace(R.id.frame_layout, new PaymentFragment());
         transaction.addToBackStack(null);
         transaction.commit();

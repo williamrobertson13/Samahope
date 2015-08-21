@@ -9,7 +9,7 @@
             android:title="@string/menu_home"/>
         <item
             android:id="@+id/nav_item_activity"
-
+            android:icon="@drawable/ic_activity"
             android:title="@string/menu_activity"/>
     </group>
 
@@ -17,7 +17,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_item_feedback"
-
+            android:icon="@drawable/ic_feedback"
             android:state_checked="false"
             android:checked="false"
             android:title="@string/send_feedback"/>

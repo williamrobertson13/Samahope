@@ -32,8 +32,8 @@
             android:layout_height="270dip">
             <ImageView
                 android:id="@+id/doctor_bgImage"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_gravity="center_horizontal|bottom"

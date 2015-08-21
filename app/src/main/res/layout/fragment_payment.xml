@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="12dp"
             android:background="@color/dark_grey"
             android:id="@+id/view" />
@@ -30,7 +30,7 @@
             android:layout_alignParentStart="true" />
 
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
             android:layout_below="@+id/contributionText"
@@ -95,46 +95,78 @@
 
     </RelativeLayout>
 
-
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="12dp"
-            android:background="@color/dark_grey"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/view2" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@color/dark_grey"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/view2" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Contact Information"
-            android:paddingBottom="12dp"
-            android:paddingLeft="12dp"
-            android:paddingTop="12dp"
-            android:id="@+id/contactInfo"
-            android:layout_below="@+id/view2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Contact Information"
+                android:paddingBottom="12dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="12dp"
+                android:id="@+id/contactInfo"
+                android:layout_below="@+id/view2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_below="@+id/contactInfo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/contactInfo"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/view3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view3"
+                android:paddingLeft="25dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:orientation="vertical"
+                android:id="@+id/linearLayout2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="Please enter your name"
+                    android:ems="10"
+                    android:id="@+id/edit_text_name" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:hint="Please enter your phone number"
+                    android:paddingTop="20dp"
+                    android:ems="10"
+                    android:id="@+id/edit_text_phone" />
+            </LinearLayout>
     </RelativeLayout>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="12dp"
+        android:background="@color/dark_grey" />
+
     <FrameLayout
-    android:id="@+id/dynamic_wallet_button_fragment"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:layout_gravity="bottom" />
-
-
+        android:id="@+id/dynamic_wallet_button_fragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 </LinearLayout>

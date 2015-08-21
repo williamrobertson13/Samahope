@@ -45,8 +45,8 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
     private GoogleApiClient googleApiClient;
     private int donationAmount;
 
-    public static final int LOAD_MASKED_WALLET_REQUEST_CODE = 1000;
-    public static final int LOAD_FULL_WALLET_REQUEST_CODE = 1001;
+    private static final int LOAD_MASKED_WALLET_REQUEST_CODE = 1000;
+    private static final int LOAD_FULL_WALLET_REQUEST_CODE = 1001;
 
     public PaymentFragment() {
         // Required empty public constructor
@@ -123,10 +123,12 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
 
         customText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -138,15 +140,6 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                 donationAmount = Integer.valueOf(customText.getText().toString());
             }
         });
-    }
-
-    public static boolean isNumeric(String str)
-    {
-        for (char c : str.toCharArray())
-        {
-            if (!Character.isDigit(c)) return false;
-        }
-        return true;
     }
 
     @Override
@@ -179,6 +172,7 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                                         .build())
                                 .setGoogleTransactionId(maskedWallet.getGoogleTransactionId())
                                 .build();
+
                         Wallet.Payments.loadFullWallet(googleApiClient, fullWalletRequest, LOAD_FULL_WALLET_REQUEST_CODE);
                         Snackbar.make(getView(), "Processing payment... ", Snackbar.LENGTH_LONG).show();
                         break;
@@ -200,7 +194,13 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
 
                         Token token = Token.GSON.fromJson(tokenJSON, Token.class);
                         token.setAmount(donationAmount);
-                        Log.e("F", token.toString());
+
+                        // FOR PRODUCTION: create an async task to POST the token to the
+                        // Samahope web server, where it will then create a credit card charge
+                        // and also setup an email subscription for updates
+                        Log.i("PAY_TOKEN", token.toString());
+
+
                         launchDonationCompletePage();
                         break;
                     case Activity.RESULT_CANCELED:
@@ -253,7 +253,7 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
         SupportWalletFragment mWalletFragment = SupportWalletFragment.newInstance(walletFragmentOptions);
 
         // set up stripe as the primary payment gateway
-        // FOR PRODUCTION: REPLACE TEST KEY WITH LIVE KEY
+        // FOR PRODUCTION: relace test key with live key
         MaskedWalletRequest maskedWalletRequest = MaskedWalletRequest.newBuilder()
 
                 // Request credit card tokenization with Stripe by specifying tokenization parameters:
@@ -307,8 +307,7 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult result) {
-    }
+    public void onConnectionFailed(ConnectionResult result) { }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -322,5 +321,13 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isNumeric(String str)
+    {
+        for (char c : str.toCharArray())
+            if (!Character.isDigit(c)) return false;
+
+        return true;
     }
 }

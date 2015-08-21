@@ -15,7 +15,8 @@ public class DonationCompleteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_complete);
-        
+
+        // make the button return back to the MainActivity
         Button returnButton = (Button) findViewById(R.id.button_return);
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,7 +25,6 @@ public class DonationCompleteActivity extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 DonationCompleteActivity.this.startActivity(intent);
-
             }
         });
     }
