@@ -9,7 +9,7 @@ import com.parse.ParseQuery;
  * See <a href="http://www.samahope.com">http://www.samahope.com</a>
  *
  * These objects are stored in Parse and scraped continuously for updated
- * information.
+ * information, such as treatments needed and money earned.
  */
 @ParseClassName("Doctor")
 public class DoctorProfile extends ParseObject {

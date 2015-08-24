@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.samahop.samahope.doctors.DoctorFragment;
-import com.samahop.samahope.payments.PaymentFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar actionBar;
+
     private int currentSelectedItem;
     private String mActionBarTitle;
 
@@ -56,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame_layout, frag);
         transaction.commit();
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getPaymentFragment().onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+
         // Pass any configuration change to the drawer toggle
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
@@ -104,25 +110,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupNavigationView() {
 
-        //Initializing NavigationView
+        // initializing NavigationView
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        // setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             // This method will trigger on item click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                //Checking if the item is in checked state or not, if not make it in checked state
+                // checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked())
                     menuItem.setChecked(false);
                 else menuItem.setChecked(true);
 
-                //Closing drawer on item click
+                // closing drawer on item click
                 mDrawerLayout.closeDrawers();
 
-                //Check to see which item was being clicked and perform appropriate action
+                // check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     case R.id.nav_item_home:
                         selectHome();
@@ -165,29 +171,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectHome() {
-        if (currentSelectedItem != 1) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frame_layout, new DoctorFragment());
-            transaction.commit();
-            currentSelectedItem = 1;
-        }
+        selectFragmentFromNav(new DoctorFragment(), 1);
     }
 
     private void selectActivity() {
-        if (currentSelectedItem != 2) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frame_layout, new DoctorFragment());
-            transaction.commit();
-            currentSelectedItem = 2;
-        }
+        selectFragmentFromNav(new DoctorFragment(), 2);
     }
 
     private void selectSendFeedback() {
-        mNavigationView.getMenu().getItem(2).setChecked(false);
         Intent intent = new Intent();
         intent.setAction("android.intent.action.SENDTO");
-        StringBuilder stringbuilder = new StringBuilder("mailto:contact@samahope.org?subject=");
-        stringbuilder.append(Uri.encode("Samahope for Android App Feedback"))
+        StringBuilder stringBuilder = new StringBuilder("mailto:contact@samahope.org?subject=");
+        stringBuilder.append(Uri.encode("Samahope for Android App Feedback"))
                 .append("&body=\n\n\n\n")
                 .append(Build.MANUFACTURER)
                 .append(' ').append(Build.DEVICE)
@@ -197,10 +192,18 @@ public class MainActivity extends AppCompatActivity {
                 .append(android.os.Build.VERSION.SDK_INT)
                 .append("\nLanguage: ")
                 .append(Resources.getSystem().getConfiguration().locale);
-        intent.setData(Uri.parse(stringbuilder.toString()));
+        intent.setData(Uri.parse(stringBuilder.toString()));
         startActivity(Intent.createChooser(intent, "Send mail using... "));
-        mNavigationView.getMenu().getItem(2).setChecked(false);
         currentSelectedItem = 3;
+    }
+
+    private void selectFragmentFromNav(Fragment fragment, int itemId) {
+        if (currentSelectedItem != itemId) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, fragment);
+            transaction.commit();
+            currentSelectedItem = itemId;
+        }
     }
 
     private void syncActionBarArrowState() {
@@ -209,23 +212,9 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(backStackEntryCount == 0);
     }
 
-    public DrawerLayout getDrawerLayout() { return mDrawerLayout; }
-
-    public void onDonateClicked(View view) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.abc_popup_enter, R.anim.abc_popup_exit);
-        transaction.replace(R.id.frame_layout, new PaymentFragment());
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        getPaymentFragment().onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     private Fragment getPaymentFragment() {
         return getSupportFragmentManager().findFragmentById(R.id.frame_layout);
     }
+
+    public DrawerLayout getDrawerLayout() { return mDrawerLayout; }
 }

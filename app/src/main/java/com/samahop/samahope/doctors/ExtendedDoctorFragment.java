@@ -2,29 +2,46 @@ package com.samahop.samahope.doctors;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.samahop.samahope.MainActivity;
 import com.samahop.samahope.R;
+import com.samahop.samahope.payments.PaymentFragment;
 import com.squareup.picasso.Picasso;
 
 /**
  * This fragment is opened whenever a user clicks on a doctor item from the recycler view
  * list. Essentially, the user can scroll through the more specific details pertaining to
- * the doctor and choose to donate.
+ * the doctor and click a button to donate.
  */
 public class ExtendedDoctorFragment extends Fragment {
 
     private DoctorProfile doctor;
 
-    public ExtendedDoctorFragment() { }
+    // create an onClick listener here instead of the MainActivity for better organization
+    // when the donate button is clicked, it will bring up the payment form
+    View.OnClickListener donateOnClick = new View.OnClickListener() {
+        public void onClick(View v) {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.abc_popup_enter, R.anim.abc_popup_exit);
+            transaction.replace(R.id.frame_layout, new PaymentFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+    };
+
+    public ExtendedDoctorFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +54,7 @@ public class ExtendedDoctorFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_extended_doctor_profile, container, false);
 
-        //set toolbar and enable back navigation
+        // set toolbar and enable back navigation
         MainActivity activity = (MainActivity) getActivity();
         activity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         activity.getSupportActionBar().setTitle("Doctor Overview");
@@ -52,6 +69,8 @@ public class ExtendedDoctorFragment extends Fragment {
         ProgressBar percentageFunded = (ProgressBar) view.findViewById(R.id.extended_doctor_progress);
         TextView treatmentName = (TextView) view.findViewById(R.id.extended_focus_text);
         ImageView treatmentImage = (ImageView) view.findViewById(R.id.extended_focus_image);
+        Button donateButton = (Button) view.findViewById(R.id.donate_button);
+        donateButton.setOnClickListener(donateOnClick);
 
         name.setText(doctor.getName());
         biography.setText(doctor.getBiography());
@@ -71,7 +90,6 @@ public class ExtendedDoctorFragment extends Fragment {
         styledText = Html.fromHtml(text);
         percentageText.setText(styledText);
 
-
         Picasso.with(view.getContext())
                 .load(doctor.getBannerImage())
                 .fit()
@@ -88,5 +106,4 @@ public class ExtendedDoctorFragment extends Fragment {
     }
 
     public void setDoctor(DoctorProfile doc) { doctor = doc; }
-
 }

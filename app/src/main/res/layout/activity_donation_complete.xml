@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.samahop.samahope.payments.DonationCompleteActivity">
 
-    <TextView android:text="Thank you!"
+    <TextView android:text="@string/thank_you"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
@@ -21,7 +21,6 @@
         android:paddingLeft="22dp"
         android:paddingRight="22dp"
         android:textSize="14sp"
-        android:textColor="@color/dark_grey"
         android:id="@+id/text_thank_you_info"
         android:layout_below="@+id/text_thank_you"
         android:layout_alignParentRight="true" />

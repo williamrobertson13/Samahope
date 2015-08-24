@@ -123,12 +123,10 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
 
         customText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -196,8 +194,9 @@ public class PaymentFragment extends Fragment implements GoogleApiClient.Connect
                         token.setAmount(donationAmount);
 
                         // FOR PRODUCTION: create an async task to POST the token to the
-                        // Samahope web server, where it will then create a credit card charge
-                        // and also setup an email subscription for updates
+                        // Samahope web server, where it will then create a credit card charge,
+                        // setup an email subscription for updates, and send name/phone number for
+                        // data collection
                         Log.i("PAY_TOKEN", token.toString());
 
 

@@ -58,21 +58,17 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
         percentageFunded.setText(String.valueOf(object.getCostPercentage()) + "%");
         progressFunded.setProgress(object.getCostPercentage());
 
-
-       // if (treatmentImage.getDrawable() == null) {
-            Picasso.with(itemView.getContext())
+        Picasso.with(itemView.getContext())
                     .load(object.getTreatmentImage())
                     .fit()
                     .centerCrop()
                     .into(treatmentImage);
-       // }
-       // if (bannerImage.getDrawable() == null) {
-            Picasso.with(itemView.getContext())
+
+        Picasso.with(itemView.getContext())
                     .load(object.getBannerImage())
                     .fit()
                     .centerCrop()
                     .into(bannerImage);
-      //  }
     }
 
     @Override
@@ -87,7 +83,7 @@ public class DoctorProfileViewHolder extends RecyclerView.ViewHolder implements 
 
         ExtendedDoctorFragment profile = new ExtendedDoctorFragment();
 
-        // this is very very ugly
+        // this is very very ugly... will work for now
         DoctorFragment listFrag = ((DoctorFragment)((MainActivity)view.getContext()).getSupportFragmentManager().findFragmentById(R.id.frame_layout));
         profile.setDoctor(listFrag.getDataAdapter().getDoctors().get(name.getText().toString()));
 
