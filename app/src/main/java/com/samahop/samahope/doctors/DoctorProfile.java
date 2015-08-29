@@ -87,6 +87,18 @@ public class DoctorProfile extends ParseObject {
     }
 
     /**
+     * Gets the number of treatments funded so far.
+     * @return the number of treatments funded.
+     */
+    public int getTreatmentsFunded() { return getInt("treatment_count"); }
+
+    /**
+     * Gets the number of treatments needed.
+     * @return the number of treatments needed.
+     */
+    public int getTreatmentsNeeded() { return getInt("treatments_needed"); }
+
+    /**
      * Gets the appropriate treatment image for the doctor object from Parse.
      * @return the appropriate image for the doctor object's treatment
      */

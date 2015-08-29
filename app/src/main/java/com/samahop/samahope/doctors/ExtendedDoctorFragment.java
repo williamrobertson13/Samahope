@@ -68,6 +68,7 @@ public class ExtendedDoctorFragment extends Fragment {
         ImageView bannerImage = (ImageView) view.findViewById(R.id.extended_doctor_image);
         ProgressBar percentageFunded = (ProgressBar) view.findViewById(R.id.extended_doctor_progress);
         TextView treatmentName = (TextView) view.findViewById(R.id.extended_focus_text);
+        TextView treatmentInfo = (TextView) view.findViewById(R.id.treatment_info);
         ImageView treatmentImage = (ImageView) view.findViewById(R.id.extended_focus_image);
         Button donateButton = (Button) view.findViewById(R.id.donate_button);
         donateButton.setOnClickListener(donateOnClick);
@@ -89,6 +90,12 @@ public class ExtendedDoctorFragment extends Fragment {
                 doctor.getCostPercentage());
         styledText = Html.fromHtml(text);
         percentageText.setText(styledText);
+
+        // format html string for treatments funded from xml
+        text = String.format(getResources().getString(R.string.treatments_funded_text),
+                doctor.getTreatmentsFunded());
+        styledText = Html.fromHtml(text);
+        treatmentInfo.setText(styledText);
 
         Picasso.with(view.getContext())
                 .load(doctor.getBannerImage())

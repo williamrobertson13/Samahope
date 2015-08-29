@@ -6,6 +6,7 @@
     <string name="money_needed_text">needed</string>
     <string name="percentage_funded_text">funded</string>
     <string name="percentage_funded_text_2">&lt;font color=#2a2a2a>&lt;b>%1$s%%&lt;/b>&lt;/font> funded</string>
+    <string name="treatments_funded_text">&lt;font color=#2a2a2a>&lt;b>%1$s&lt;/b>&lt;/font> treatments funded</string>
     <string name="contribute">CONTRIBUTE</string>
     <string name="drawer_open">open drawer</string>
     <string name="drawer_close">close drawer</string>
